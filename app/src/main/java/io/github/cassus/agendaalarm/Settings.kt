@@ -40,6 +40,11 @@ class Settings(context: Context) {
         get() = prefs.getInt("autoStop", 180)
         set(v) = prefs.edit().putInt("autoStop", v).apply()
 
+    /** Vibrate with the alarm (in normal and vibrate ringer modes). */
+    var vibrate: Boolean
+        get() = prefs.getBoolean("vibrate", true)
+        set(v) = prefs.edit().putBoolean("vibrate", v).apply()
+
     /** Ringtone URI string; null = default alarm sound. */
     var ringtone: String?
         get() = prefs.getString("ringtone", null)

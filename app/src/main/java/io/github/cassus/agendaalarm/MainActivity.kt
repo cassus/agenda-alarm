@@ -163,6 +163,9 @@ class MainActivity : ComponentActivity() {
             Button(onClick = { launchRingtonePicker(settings.ringtone) }) { Text("Change") }
         }
 
+        var vibrate by remember(refresh) { mutableStateOf(settings.vibrate) }
+        Toggle("Vibrate", vibrate) { vibrate = it; settings.vibrate = it }
+
         var volume by remember(refresh) { mutableStateOf(settings.volumePercent) }
         Toggle("Use system alarm volume", volume == null) { system ->
             volume = if (system) null else 70

@@ -68,7 +68,7 @@ class AlertService : Service() {
         // In DND, getRingerMode() reports silent; the global setting keeps the user's ringer switch.
         val mode = android.provider.Settings.Global.getInt(contentResolver, android.provider.Settings.Global.MODE_RINGER, audio.ringerMode)
         Log.i(TAG, "Alert start: ringerMode=$mode (audio=${audio.ringerMode})")
-        if (mode != AudioManager.RINGER_MODE_SILENT) {
+        if (mode != AudioManager.RINGER_MODE_SILENT && settings.vibrate) {
             vibrator = getSystemService(Vibrator::class.java)
             vibrator?.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 800, 600), 0))
         }
