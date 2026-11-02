@@ -26,6 +26,14 @@ class SettingsParseTest {
         assertNull(Settings.parseSeconds("1.5", 0..600))
     }
 
+    @Test fun upcomingPlanSplitsByWindow() {
+        fun c(at: Long) = ReminderCandidate(1, 1, "t", null, at, false, 0, 1, 1, true)
+        val p = Upcoming.plan(listOf(c(1_000), c(5_000), c(9_000)), now = 0, leadMs = 5_000)
+        assertEquals(listOf(1_000L, 5_000L), p.show.map { it.alarmTime })
+        assertEquals(4_000L, p.nextAt)
+        assertEquals(Upcoming.Plan(emptyList(), null), Upcoming.plan(listOf(c(1_000)), 0, 0))
+    }
+
     @Test fun volumeIndexScalesAndNeverSilent() {
         assertEquals(7, Settings.volumeIndex(100, 7))
         assertEquals(4, Settings.volumeIndex(50, 7))

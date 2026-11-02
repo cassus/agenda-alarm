@@ -191,6 +191,10 @@ class MainActivity : ComponentActivity() {
         NumberField("Snooze minutes (comma-separated)", settings.snoozeMinutes.joinToString(", ")) { t ->
             Settings.parseSnooze(t)?.also { settings.snoozeMinutes = it }
         }
+        // Capped at 12 h so a skip is remembered until the alarm time (the fired list keeps a day).
+        NumberField("Upcoming notice (minutes before, 0 = off)", "${settings.upcomingMinutes}") { t ->
+            Settings.parseSeconds(t, 0..720)?.also { settings.upcomingMinutes = it; Scheduler.reschedule(this@MainActivity) }
+        }
         Button(onClick = {
             AlertService.start(this@MainActivity, "Test alarm", System.currentTimeMillis(), openScreen = true)
         }) { Text("Test alarm now") }

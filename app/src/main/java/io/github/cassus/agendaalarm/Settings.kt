@@ -45,6 +45,11 @@ class Settings(context: Context) {
         get() = prefs.getBoolean("vibrate", true)
         set(v) = prefs.edit().putBoolean("vibrate", v).apply()
 
+    /** Minutes before an alarm to show its silent "Upcoming alarm" notice; 0 = off. */
+    var upcomingMinutes: Int
+        get() = prefs.getInt("upcoming", 120)
+        set(v) = prefs.edit().putInt("upcoming", v).apply()
+
     /** Ringtone URI string; null = default alarm sound. */
     var ringtone: String?
         get() = prefs.getString("ringtone", null)

@@ -40,6 +40,10 @@
             android:exported="false" />
 
         <receiver
+            android:name=".SkipReceiver"
+            android:exported="false" />
+
+        <receiver
             android:name=".RescheduleReceiver"
             android:exported="true">
             <intent-filter>

@@ -37,7 +37,9 @@ object Scheduler {
 
     fun reschedule(context: Context) {
         CalendarChangeJob.schedule(context)
-        val next = upcoming(context).firstOrNull()
+        val all = upcoming(context)
+        Upcoming.update(context, all)
+        val next = all.firstOrNull()
         val am = context.getSystemService(AlarmManager::class.java)
         val pi = pending(context, REQ_NEXT, next)
         if (next == null) {
